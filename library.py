@@ -12,7 +12,8 @@ def db_setup():
         title TEXT NOT NULL,
         author TEXT NOT NULL,
         publisher TEXT NOT NULL,
-        publish_date DATE NOT NULL
+        publish_date DATE NOT NULL,
+        stock INTEGER
     )""")
 
     connection.commit()
@@ -56,6 +57,30 @@ def add_book(isbn):
 
         connection.close()
     return False
+
+
+def add_stock(isbn, amount):
+    connection = sqlite3.connect("library.db")
+    cursor = connection.cursor()
+
+    cursor.execute("UPDATE books SET stock = stock + ? WHERE isbn=?", (amount, isbn))
+
+    connection.commit()
+    connection.close()
+
+
+def remove_stock(isbn, amount):
+    connection = sqlite3.connect("library.db")
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT stock FROM books WHERE isbn=?", (isbn,))
+    stock = cursor.fetchone()
+
+    if stock[0] >= amount:
+        cursor.execute("UPDATE books SET stock = stock - ? WHERE isbn=?", (amount, isbn))
+        return True
+    else:
+        return False
 
 
 def remove_book(isbn):
