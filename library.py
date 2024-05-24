@@ -39,8 +39,8 @@ def get_book(isbn):
 
 def add_book(isbn, amount):
     book_obj = get_book(isbn)
-    book_obj.stock = amount
     if book_obj is not None:
+        book_obj.stock = amount
         connection = sqlite3.connect("library.db")
         cursor = connection.cursor()
 
