@@ -35,11 +35,11 @@ def get_book(isbn):
         book_object = book.Book(title, author, publisher, date)
 
         return book_object
-        # print(resp_json)
 
 
-def add_book(isbn):
+def add_book(isbn, amount):
     book_obj = get_book(isbn)
+    book_obj.stock = amount
     if book_obj is not None:
         connection = sqlite3.connect("library.db")
         cursor = connection.cursor()
@@ -49,8 +49,8 @@ def add_book(isbn):
         book_exists = cursor.fetchone()
 
         if book_exists is None:
-            cursor.execute("INSERT INTO books (isbn, title, author, publisher, publish_date) VALUES (?, ?, ?, ?, ?)",
-                           (isbn, book_obj.title, book_obj.author, book_obj.publisher, book_obj.date))
+            cursor.execute("INSERT INTO books (isbn, title, author, publisher, publish_date, stock) VALUES (?, ?, ?, ?, ?, ?)",
+                           (isbn, book_obj.title, book_obj.author, book_obj.publisher, book_obj.date, book_obj.stock))
             connection.commit()
             connection.close()
             return True
