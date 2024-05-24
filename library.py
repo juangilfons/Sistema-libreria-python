@@ -114,13 +114,14 @@ def main_terminal_ui():
         print("1. Add Book")
         print("2. Remove Book")
         print("3. View Available Books")
-        print("4. Exit\n")
+        print("4. Manage Stock")
+        print("5. Exit\n")
 
         user_input = input("Your choice: ")
 
         if user_input == "1":
             isbn = input("Enter ISBN: ")
-            if add_book(isbn) is False:
+            if add_book(isbn,0) is False:
                 print("isbn not found or already exists")
             else:
                 print("Book added successfully!\n")
@@ -133,6 +134,18 @@ def main_terminal_ui():
             for book in books:
                 print(book)
         elif user_input == "4":
+            print("1. Add Stock")
+            print("2. Remove Stock")
+            stock_choice = input("\nYour choice: ")
+            if stock_choice == "1":
+                isbn = input("Enter ISBN: ")
+                amount = int(input("Enter Amount: "))
+                add_stock(isbn, amount)
+            elif stock_choice == "2":
+                isbn = input("Enter ISBN: ")
+                amount = int(input("Enter Amount: "))
+                remove_stock(isbn, amount)
+        elif user_input == "5":
             print("Thank you for using our Library!")
             exit()
         else:
