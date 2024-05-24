@@ -78,6 +78,8 @@ def remove_stock(isbn, amount):
 
     if stock[0] >= amount:
         cursor.execute("UPDATE books SET stock = stock - ? WHERE isbn=?", (amount, isbn))
+        connection.commit()
+        connection.close()
         return True
     else:
         return False
