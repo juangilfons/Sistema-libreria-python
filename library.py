@@ -19,25 +19,6 @@ def db_setup():
     connection.close()
 
 
-# Mica Berzoni <micaelaberzoni01@gmail.com>
-# 13:00 (hace 3 minutos)
-# para mí
-# hola juano que opinas
-# hola mica, super
-def list_books_by_author(author):
-    connection = sqlite3.connect("library.db")
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT title FROM books WHERE author=?", (author,))
-    books = cursor.fetchall()
-
-    cursor.close()
-    connection.close()
-
-    if books:
-            return books
-    else:
-        return None
 
 
 def get_book(isbn):
@@ -98,6 +79,22 @@ def all_books():
 
     connection.close()
     return books
+
+
+def list_books_by_author(author):
+    connection = sqlite3.connect("library.db")
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT title FROM books WHERE author=?", (author,))
+    books = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    if books:
+            return books
+    else:
+        return None
 
 
 def main_terminal_ui():
