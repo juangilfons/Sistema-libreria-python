@@ -17,7 +17,7 @@ def db_setup():
 
     connection.commit()
     connection.close()
-
+#BRUNO PUTO
 
 # Mica Berzoni <micaelaberzoni01@gmail.com>
 # 13:00 (hace 3 minutos)
